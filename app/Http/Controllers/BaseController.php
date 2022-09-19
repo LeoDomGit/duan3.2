@@ -20,8 +20,8 @@ class BaseController extends Controller
     }
     public function SQLValidate($item)
     {
-    
-        $pattern = '/(select||Select||SELECT||update||Update||UPDATE||Delete||DELETE||delete) +\w/';
+
+        $pattern = '/select|Select|SELECT|update|Update|UPDATE|Delete|DELETE|delete/';
         if(trim($item,' ')==''){
             return false;
         }else if(preg_match($pattern,$item)){
@@ -48,7 +48,7 @@ class BaseController extends Controller
         return is_numeric($item);
     }
     // =================================
-    
+
     public function checkMail($item){
         $check=false;
         $pattern='/(.+)@(.+)\.(com)/i';
@@ -60,7 +60,7 @@ class BaseController extends Controller
         }
         return $check;
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *

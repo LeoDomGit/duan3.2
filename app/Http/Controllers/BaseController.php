@@ -52,7 +52,7 @@ class BaseController extends Controller
     public function checkMail($item){
         $check=false;
         $pattern='/(.+)@(.+)\.(com)/i';
-        $pattern2='/(.+)@(fpt+)\.(edu.vn)/i';
+        $pattern2='/(.+)@(leontec.co+)\.(jp)/i';
         if(preg_match($pattern,$item)||preg_match($pattern2,$item)){
             $check=true;
         }else{

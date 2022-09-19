@@ -22,7 +22,7 @@ class BaseController extends Controller
     {
 
         $pattern = '/select|Select|SELECT|update|Update|UPDATE|Delete|DELETE|delete/';
-        if(trim($item,' ')==''){
+        if(trim($item)==''){
             return false;
         }else if(preg_match($pattern,$item)){
             return false;
@@ -51,9 +51,9 @@ class BaseController extends Controller
 
     public function checkMail($item){
         $check=false;
-        $pattern='/(.+)@(.+)\.(com)/i';
+        // $pattern='/(.+)@(.+)\.(com)/i';
         $pattern2='/(.+)@(leontec.co+)\.(jp)/i';
-        if(preg_match($pattern,$item)||preg_match($pattern2,$item)){
+        if(preg_match($pattern2,$item)){
             $check=true;
         }else{
             $check = false;

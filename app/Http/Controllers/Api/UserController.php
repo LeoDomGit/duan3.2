@@ -66,6 +66,28 @@ class UserController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+     public function checkEmail(){
+        $email = trim($_GET['email']);
+        if(BaseController::SQLValidate($email)==true&&BaseController::checkMail($email)==true){
+            $check = BaseController::checkExist($email,'users','email');
+            if($check==0){
+                return response()->json(['check'=>false]);
+            }else{
+                return response()->json(['check'=>true]);
+            }
+        }else{
+            return response()->json(['check'=>false]);
+
+        }
+     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         //

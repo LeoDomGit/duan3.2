@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 class UserController extends BaseController
 {
     /**

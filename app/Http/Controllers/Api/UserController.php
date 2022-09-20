@@ -29,11 +29,10 @@ class UserController extends BaseController
     {
         $username = $request->username;
         $email = $request->email;
-        $roleid = $request->roleId;
         $validateMail =BaseController::checkMail($email);
-        if(BaseController::checkNull($username)==false||BaseController::checkNull($email)==false||BaseController::checkNull($roleid)==false){
+        if(BaseController::checkNull($username)==false||BaseController::checkNull($email)==false){
             return response()->json(['status'=>401,'eror'=>'missing']);
-        }else if(BaseController::checkInt($roleid)==true&&BaseController::SQLValidate($email)==true&&BaseController::SQLValidate($username)==true&&$validateMail==true){
+        }else if(BaseController::SQLValidate($email)==true&&BaseController::SQLValidate($username)==true&&$validateMail==true){
                  $check = BaseController::checkExist($email,'users','email');
             if($check!=0){
                 return response()->json(['status'=>401,'eror'=>'exist']);

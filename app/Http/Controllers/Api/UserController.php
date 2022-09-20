@@ -16,7 +16,7 @@ class UserController extends BaseController
      */
     public function allUsers()
     {
-        $result= DB::Table('users')->join('role_tbl','users.idRole','=','role_tbl.id')->get();
+        $result= DB::Table('users')->get();
         return response()->json($result);
     }
 
@@ -38,13 +38,10 @@ class UserController extends BaseController
             if($check!=0){
                 return response()->json(['status'=>401,'eror'=>'exist']);
             }else{
-                if(BaseController::checkExist($roleid,'role_tbl','id')==0){
-                    return response()->json(['status'=>401,'eror'=>'wrongvalue']);
-                }else{
                     $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
                     $password = substr(str_shuffle($permitted_chars), 0, 10);
                     $pass1= Hash::make($password);
-                    DB::Table('users')->insert(['username'=>$username,'password'=>$pass1,'idRole'=>$roleid,'email'=>$email,'created_at'=>now()]);
+                    DB::Table('users')->insert(['username'=>$username,'password'=>$pass1,'email'=>$email,'created_at'=>now()]);
                     $details = [
                         'title' => 'Email thông báo tài khoản',
                         'username'=> $username,
@@ -55,7 +52,6 @@ class UserController extends BaseController
                     Mail::to($email)->send(new \App\Mail\EmailThongBao($details));
                     return response()->json(['status'=>200]);
                 }
-            }
         }else{
             return response()->json(['status'=>401,'eror'=>'sqlmistake']);
         }

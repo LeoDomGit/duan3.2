@@ -103,6 +103,7 @@ class UserController extends BaseController
         if(BaseController::SQLValidate($email)==true&&BaseController::checkMail($email)==true){
             $check = BaseController::checkExist($email,'users','email');
             $checkstatus = BaseController::getValue('users',$email,'email','status');
+            $roleName = SelectSql($sql);
             if($check==0||$checkstatus==0){
                 return response()->json(['check'=>false]);
             }else{
@@ -110,7 +111,6 @@ class UserController extends BaseController
             }
         }else{
             return response()->json(['check'=>false]);
-
         }
      }
 

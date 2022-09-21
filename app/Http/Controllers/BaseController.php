@@ -3,8 +3,17 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-class BaseController extends Controller
+class BaseController
 {
+    /**
+     * @var \Illuminate\Http\Request
+     */
+    // ===============================
+
+    public function SelectSql($sql){
+        $result = DB::SELECT($sql);
+        return $result;
+    }
     /**
      * Display a listing of the resource.
      *

@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('description');
             $table->string('note')->nullable();
             $table->integer('status',false,false)->default(0);
-            $table->timestamps('start_date')->nullable();
-            $table->timestamps('end_date')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('project');
     }
 };

@@ -102,7 +102,8 @@ class UserController extends BaseController
         $email = trim($_GET['email']);
         if(BaseController::SQLValidate($email)==true&&BaseController::checkMail($email)==true){
             $check = BaseController::checkExist($email,'users','email');
-            if($check==0){
+            $checkstatus = BaseController::getValue('users',$email,'email','status');
+            if($check==0||$checkstatus==0){
                 return response()->json(['check'=>false]);
             }else{
                 return response()->json(['check'=>true]);

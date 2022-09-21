@@ -32,6 +32,8 @@ Route::post('deleteRole',[RoleController::class,'deleteRole']);
 Route::post('addUser',[UserController::class,'create']);
 Route::post('updateUserRoles',[UserController::class,'updateRole']);
 Route::post('blockUser',[UserController::class,'blockUser']);
+Route::post('createTeam',[UserController::class,'createTeam']);
+
 
 
 

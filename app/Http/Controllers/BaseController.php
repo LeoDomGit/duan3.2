@@ -21,7 +21,7 @@ class BaseController extends Controller
     public function SQLValidate($item)
     {
 
-        $pattern = '/select|Select|SELECT|update|Update|UPDATE|Delete|DELETE|delete/';
+        $pattern = '/(select|Select|SELECT|update|Update|UPDATE|Delete|DELETE|delete) +\w/ ';
         if(trim($item)==''){
             return false;
         }else if(preg_match($pattern,$item)){

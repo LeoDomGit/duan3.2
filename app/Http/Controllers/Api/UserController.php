@@ -16,17 +16,14 @@ class UserController extends BaseController
     public function blockUser(Request $request){
         $username = $request->username;
         $check = BaseController::SQLValidate($username);
-        if($check==true){
-            $idUser = BaseController::getValue('users',$username,'username','id');
-            $oldStatus = BaseController::getValue('users',$username,'username','status');
-            if($oldStatus==1){
-                DB::table('users')->where('id',$idUser)->update(['status'=>'0','updated_at'=>now()]);
-                return response()->json(['status'=>200]);
-            }else{
-                DB::table('users')->where('id',$idUser)->update(['status'=>'1','updated_at'=>now()]);
-                return response()->json(['status'=>200]);
-            }
+        $idUser = BaseController::getValue('users',$username,'username','id');
+        $oldStatus = BaseController::getValue('users',$username,'username','status');
+        if($oldStatus==1){
+            DB::table('user_role')->where('idUser',$idUser)->update(['status'=>0,'updated_at'=>now()]);
+        }else{
+            DB::table('user_role')->where('idUser',$idUser)->update(['status'=>1,'updated_at'=>now()]);
         }
+
     }
     // =======================================
     function updateRole(Request $request){
@@ -35,10 +32,11 @@ class UserController extends BaseController
         $idRole = $request->idRole;
         $check2 =BaseController::checkInt($idRole);
         if($check2==true&&$check==true){
+
         $idUser = BaseController::getValue('users',$username,'username','id');
         DB::table('user_role')->where('idUser',$idUser)->update(['idRole'=>$idRole,'updated_at'=>now()]);
         return response()->json(['status' =>200]);
-        }
+    }
     }
     /**
      * Display a listing of the resource.
@@ -102,15 +100,15 @@ class UserController extends BaseController
         $email = trim($_GET['email']);
         if(BaseController::SQLValidate($email)==true&&BaseController::checkMail($email)==true){
             $check = BaseController::checkExist($email,'users','email');
-            $checkstatus = BaseController::getValue('users',$email,'email','status');
-            $roleName = SelectSql($sql);
-            if($check==0||$checkstatus==0){
+
+            if($check==0||BaseController::getValue('users',$email,'email','status')==0){
                 return response()->json(['check'=>false]);
             }else{
                 return response()->json(['check'=>true]);
             }
         }else{
             return response()->json(['check'=>false]);
+
         }
      }
 

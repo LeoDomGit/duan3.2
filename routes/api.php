@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/allRole',[RoleController::class,'allRole']);
 Route::get('/allUsers',[UserController::class,'allUsers']);
 Route::get('checkEmail',[UserController::class,'checkEmail']);
-
+Route::get('/getAllTeamleader',[UserController::class,'getTeamLeads']);
 // -------------------------------------------------------
 
 Route::post('addRole',[RoleController::class,'addRole']);

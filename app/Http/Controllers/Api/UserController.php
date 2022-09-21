@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Mail;
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 class UserController extends BaseController
 {
+
+    // ===============================
+    public function getTeamLeads(){
+        $teamlead = DB::Table('users')->join('user_role','user_role.idUser','=','users.id')->join('role_tbl','user_role.idRole','=','role_tbl.id')->where('role_tbl.roleName','=','Team leader')->get();
+        return response()->json($teamlead);
+    }
+
     /**
      * Display a listing of the resource.
 

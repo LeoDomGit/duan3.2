@@ -16,7 +16,7 @@ class UserController extends BaseController
      */
     public function allUsers()
     {
-        $result= DB::Table('users')->get();
+        $result= DB::Table('users')->join('user_role','users.id','=','user_role.idUser')->join('role_tbl','user_role.idRole','=','role_tbl.id')->select('*','user_role.idRole as userRoleID')->get();
         return response()->json($result);
     }
 
@@ -40,7 +40,9 @@ class UserController extends BaseController
                     $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
                     $password = substr(str_shuffle($permitted_chars), 0, 10);
                     $pass1= Hash::make($password);
-                    DB::Table('users')->insert(['username'=>$username,'password'=>$pass1,'email'=>$email,'created_at'=>now()]);
+                    $lastInsertID = DB::Table('users')->insertGetId(['username'=>$username,'password'=>$pass1,'email'=>$email,'created_at'=>now()]);
+                    $idStaff= DB::table('role_tbl')->where('roleName','Staff')->value('id');
+                    DB::Table('user_role')->insert(['idUser'=>$lastInsertID,'idRole'=>$idStaff,'created_at'=>now()]);
                     $details = [
                         'title' => 'Email thông báo tài khoản',
                         'username'=> $username,
@@ -49,6 +51,7 @@ class UserController extends BaseController
                         'thongbao'=>'Vui lòng đăng nhập và thay đổi mật khẩu . '
                     ];
                     Mail::to($email)->send(new \App\Mail\EmailThongBao($details));
+
                     return response()->json(['status'=>200]);
                 }
         }else{

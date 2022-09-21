@@ -52,10 +52,10 @@ class RoleController extends BaseController
             if($exist==0){
                 DB::Table('role_tbl')->insert(['roleName'=> $roleName,'created_at'=>now()]);
                 return response()->json(['status'=>200]);
-            }else{  
+            }else{
                 return response()->json(['status'=>401,'message'=>'Exist']);
             }
-        }   
+        }
     }
 
     /**

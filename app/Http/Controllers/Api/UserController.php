@@ -9,20 +9,43 @@ use Illuminate\Support\Facades\Mail;
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 class UserController extends BaseController
 {
+    /**
+     * Display a listing of the resource.
 
+     **/
+    public function blockUser(Request $request){
+        $username = $request->username;
+        $check = BaseController::SQLValidate($username);
+        if($check==true){
+            $idUser = BaseController::getValue('users',$username,'username','id');
+            $oldStatus = BaseController::getValue('users',$username,'username','status');
+            if($oldStatus==1){
+                DB::table('users')->where('id',$idUser)->update(['status'=>'0','updated_at'=>now()]);
+                return response()->json(['status'=>200]);
+            }else{
+                DB::table('users')->where('id',$idUser)->update(['status'=>'1','updated_at'=>now()]);
+                return response()->json(['status'=>200]);
+            }
+        }
+    }
     // =======================================
     function updateRole(Request $request){
         $username = $request->username;
+        $check = BaseController::SQLValidate($username);
         $idRole = $request->idRole;
+        $check2 =BaseController::checkInt($idRole);
+        if($check2==true&&$check==true){
         $idUser = BaseController::getValue('users',$username,'username','id');
         DB::table('user_role')->where('idUser',$idUser)->update(['idRole'=>$idRole,'updated_at'=>now()]);
         return response()->json(['status' =>200]);
+        }
     }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function allUsers()
     {
         $result= DB::Table('users')->join('user_role','users.id','=','user_role.idUser')->join('role_tbl','user_role.idRole','=','role_tbl.id')->select('*','user_role.idRole as userRoleID')->get();

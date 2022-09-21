@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('project_name');
             $table->string('description');
             $table->string('note')->nullable();
+            $table->integer('idTeamLead',false,false);
             $table->integer('status',false,false)->default(0);
             $table->timestamps();
         });

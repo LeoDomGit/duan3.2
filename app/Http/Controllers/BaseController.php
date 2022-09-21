@@ -67,9 +67,9 @@ class BaseController
 
     public function checkMail($item){
         $check=false;
-        // $pattern='/(.+)@(.+)\.(com)/i';
+        $pattern='/(.+)@(.+)\.(com)/i';
         $pattern2='/(.+)@(leontec.co+)\.(jp)/i';
-        if(preg_match($pattern2,$item)){
+        if(preg_match($pattern2,$item)||preg_match($pattern,$item)){
             $check=true;
         }else{
             $check = false;

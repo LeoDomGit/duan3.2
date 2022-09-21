@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\project;
 use Illuminate\Http\Request;
 
-class ProjectController extends Controller
+class ProjectController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -23,9 +23,9 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+
     }
 
     /**

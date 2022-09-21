@@ -27,12 +27,18 @@ class ProjectController extends BaseController
     public function create(Request $request)
     {
         $projectName = $request->projectName;
-        if(BaseController::SQLValidate($projectName)==true){
+        $idUserLeader= $request->idUserTeamLead;
+        $projectDescription= $request->projectDescription;
+        if(BaseController::SQLValidate($projectName)==false||BaseController::SQLValidate($idUserLeader)==false||BaseController::SQLValidate($projectDescription)==false){
             return response()->json(['status' => false,]);
         }else if(BaseController::checkExist($projectName,'project','project_name')!=0){
             return response()->json(['status' => false,'message'=>'exists']);
+        }else if(BaseController::checkExist($idUserLeader,'users','id')==0){
+            return response()->json(['status' => false,'message'=>'not found']);
         }else{
-            // DB::Table('project')->insert(['project_name','description']);
+            DB::Table('project')->insert(['project_name'=>$projectName,'description'=>$projectDescription,'idTeamLead'=>$idUserLeader]);
+            return response()->json(['status' => 200,'message'=>'success']);
+
         }
     }
 

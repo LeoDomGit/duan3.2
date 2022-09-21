@@ -15,7 +15,7 @@ class UserController extends BaseController
         $idRole = DB::table('role_tbl')
         ->where('roleName', 'like', 'Team Leader')
         ->get();
-        $teamlead = DB::Table('users')->join('user_role','users.id','=','user_role.idRole')->join('role_tbl','user_role.idRole','=','role_tbl.idRole')->where('role_tbl.roleName','like','Team%leader')->select('id','username','roleName','email','users.created_at')->get();
+        $teamlead = DB::Table('users')->join('user_role','users.id','=','user_role.idRole')->join('role_tbl','user_role.idRole','=','role_tbl.idRole')->where('role_tbl.roleName','like','Team%leader')->select('id as idUser','username','roleName','email','users.created_at')->get();
         return response()->json($teamlead);
     }
 

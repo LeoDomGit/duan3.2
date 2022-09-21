@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\ProjectController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +34,7 @@ Route::post('deleteRole',[RoleController::class,'deleteRole']);
 Route::post('addUser',[UserController::class,'create']);
 Route::post('updateUserRoles',[UserController::class,'updateRole']);
 Route::post('blockUser',[UserController::class,'blockUser']);
-Route::post('createTeam',[UserController::class,'createTeam']);
+Route::post('createAProject',[ProjectController::class,'create']);
 
 
 

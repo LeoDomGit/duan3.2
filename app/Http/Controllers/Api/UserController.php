@@ -9,6 +9,15 @@ use Illuminate\Support\Facades\Mail;
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 class UserController extends BaseController
 {
+
+    // =======================================
+    function updateRole(Request $request){
+        $username = $request->username;
+        $idRole = $request->idRole;
+        $idUser = BaseController::getValue('users',$username,'username','id');
+        DB::table('user_role')->where('idUser',$idUser)->update(['idRole'=>$idRole,'updated_at'=>now()]);
+        return response()->json(['status' =>200]);
+    }
     /**
      * Display a listing of the resource.
      *

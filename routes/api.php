@@ -22,11 +22,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/allRole',[RoleController::class,'allRole']);
 Route::get('/allUsers',[UserController::class,'allUsers']);
+Route::get('checkEmail',[UserController::class,'checkEmail']);
+
 // -------------------------------------------------------
 
 Route::post('addRole',[RoleController::class,'addRole']);
 Route::post('editRole',[RoleController::class,'editRole']);
 Route::post('deleteRole',[RoleController::class,'deleteRole']);
 Route::post('addUser',[UserController::class,'create']);
-Route::get('checkEmail',[UserController::class,'checkEmail']);
+Route::post('updateUserRoles',[UserController::class,'updateRole']);
+
 

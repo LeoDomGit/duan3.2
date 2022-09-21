@@ -10,6 +10,13 @@ class BaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function getValue($table,$item,$collumn,$collumnget){
+        $result=DB::Table($table)->where($collumn,'=',$item)->value($collumnget);
+        return $result;
+    }
+
+    // =====================================================
+
     public function checkNull($item){
         if(trim($item,' ')==''){
             return false;

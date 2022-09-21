@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('role_tbl', function (Blueprint $table) {
-            $table->integer('id',true,false);
-            $table->string('roleName');
+        Schema::create('user_role', function (Blueprint $table) {
+            $table->integer('idRole',false,false);
+            $table->integer('idUser',false,false);
             $table->timestamps();
+            $table->foreign('idRole')->references('id')->on('role_tbl');
+            $table->foreign('idUser')->references('id')->on('users');
         });
     }
 
@@ -27,7 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role_tbl');
-
+        Schema::dropIfExists('user_role');
     }
 };

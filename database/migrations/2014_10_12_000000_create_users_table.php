@@ -24,10 +24,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->text('ggId')->nullable();
             $table->integer('status')->default(1);
-            $table->integer('idRole',false,false);
             $table->rememberToken();
             $table->timestamps();
-            $table->foreign('idRole')->references('id')->on('userRole');
         });
     }
 

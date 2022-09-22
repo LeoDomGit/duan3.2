@@ -14,9 +14,10 @@ class ProjectController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function AllProjects()
     {
-
+        $projects = DB::table('project')->join('users','project.idTeamLead','=','users.id')->get();
+        return response()->json($projects);
     }
 
     /**
@@ -36,7 +37,7 @@ class ProjectController extends BaseController
         }else if(BaseController::checkExist($idUserLeader,'users','id')==0){
             return response()->json(['status' => false,'message'=>'not found']);
         }else{
-            DB::Table('project')->insert(['project_name'=>$projectName,'description'=>$projectDescription,'idTeamLead'=>$idUserLeader]);
+            DB::Table('project')->insert(['project_name'=>$projectName,'description'=>$projectDescription,'idTeamLead'=>$idUserLeader,'status'=>1,'created_at'=>now()]);
             return response()->json(['status' => 200,'message'=>'success']);
 
         }

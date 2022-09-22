@@ -26,6 +26,7 @@ Route::get('/allRole',[RoleController::class,'allRole']);
 Route::get('/allUsers',[UserController::class,'allUsers']);
 Route::get('checkEmail',[UserController::class,'checkEmail']);
 Route::get('/getAllTeamleader',[UserController::class,'getTeamLeads']);
+Route::get('/projects',[ProjectController::class,'AllProjects']);
 // -------------------------------------------------------
 
 Route::post('addRole',[RoleController::class,'addRole']);
